@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Builder</title>
+  <script src="vis/vis.js"></script>
+  <link href="vis/vis.css" rel="stylesheet" type="text/css" />
+  <style type="text/css">
+   #network {
+     float: left;
+     width: 600px;
+     height: 1000px;
+     border: 1px solid lightgray;
+     background-color: #d5d5d5;
+     margin-right: 5px;
+   }
+   #render {
+     float: left;
+     width: 600px;
+     height: 1000px;
+     border: 1px solid lightgray;
+     background-color: #d5d5d5;
+     margin-right: 5px;
+   }
+   #graph {
+     float: left;
+     width: 600px;
+     height: 1000px;
+     border: 1px solid lightgray;
+     background-color: #d5d5d5;
+     color: #333333;
+       font: 12pt monospace;
+   }
+  </style>
+</head>
+<body>
+  <pre>{ "id": 10, "type": "math", "label": "Math: -1 * X * Y", "op": "(x, y) => -1 * x * y" }</pre>
+  <h1>Hello</h1>
+  <div id='network'></div>
+  <div id='render'></div>
+  <textarea id='graph'>
+    {
+      "universe": {
+        "input": [
+          { "id": 0, "type": "viewtap", "where": "up", "label": "Tap up" },
+          { "id": 1, "type": "viewtap", "where": "down", "label": "Tap down" },
+          { "id": 2, "type": "pushnotif", "where": "pushnotif", "label": "New status Notification" }
+        ],
+        "state": [
+          { "id": 3, "label": "upCount", "v": 0 },
+          { "id": 4, "label": "downCount", "v": 0 },
+          { "id": 5, "label": "status", "v": "No status yet" }
+        ],
+        "transform": [
+          { "id": 6, "type": "nop", "label": "NOP", "op": "x => x" },
+          { "id": 7, "type": "math", "label": "Math: X - Y", "op": "(x, y) => x - y" }
+        ],
+        "viewState": [
+          { "id": 8, "label": "yOffset", "v": 0 },
+          { "id": 9, "label": "status", "v": "No status yet" }
+        ]
+      },
+      "edges": [
+        {"from": 0, "to": 3},
+        {"from": 1, "to": 4},
+        {"from": 2, "to": 5},
+        {"from": 3, "to": 7},
+        {"from": 4, "to": 7},
+        {"from": 5, "to": 6},
+        {"from": 7, "to": 8},
+        {"from": 6, "to": 9}
+      ]
+    }
+  </textarea>
+  <script src='bundle.js'></script>
+</body>
+</html>
